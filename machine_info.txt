@@ -1,4 +1,4 @@
-cpu=(unknown - re-run run.sh to record)
+cpu=Intel(R) Xeon(R) W-11955M CPU @ 2.60GHz
 cores=6
 N=100000000
 runs=5
