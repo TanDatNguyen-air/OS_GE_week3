@@ -27,6 +27,10 @@ print(f"T_single = {T_single:.4f} s")
 print(summary.to_string(index=False))
 
 cores = os.cpu_count()
+if os.path.exists("machine_info.txt"):
+    for line in open("machine_info.txt"):
+        if line.startswith("cores="):
+            cores = int(line.split("=")[1])
 plots = [
     ("time",       "Execution time (s)", "Execution Time vs Number of Threads", "time.png"),
     ("speedup",    "Speedup",            "Speedup vs Number of Threads",        "speedup.png"),
@@ -53,7 +57,6 @@ for col, ylabel, title, fname in plots:
     plt.savefig(fname, dpi=150)
     print("saved", fname)
 
-# ---- 3. Thí nghiệm 6.1: tần suất đồng bộ (result_3_k.csv) ----
 if os.path.exists("result_3_k.csv"):
     dk = pd.read_csv("result_3_k.csv")
     kavg = dk.groupby("k")["time"].mean().reset_index()

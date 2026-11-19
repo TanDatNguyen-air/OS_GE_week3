@@ -4,10 +4,20 @@ RUNS=${2:-5}
 THREADS="1 2 4 8 16 32 64 128"
 KS="1 10 100 1000 10000 100000"
 CORES=$(nproc)
-K_THREADS=$CORES                         
+K_THREADS=$CORES
+THREADS=$(echo $THREADS $CORES | tr " " "\n" | sort -n | uniq | tr "\n" " ")                         
 cd "$(dirname "$0")"                     
 
 make -s all
+
+# Ghi lại thông số cần cho báo cáo; plot.py đọc "cores" từ file này
+{
+    echo "cpu=$(lscpu | grep 'Model name' | sed 's/.*: *//')"
+    echo "cores=$CORES"
+    echo "N=$N"
+    echo "runs=$RUNS"
+} > machine_info.txt
+cat machine_info.txt
 
 
 echo "Approach 1 (single thread)"

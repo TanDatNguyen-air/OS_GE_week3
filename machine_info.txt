@@ -1,0 +1,4 @@
+cpu=(unknown - re-run run.sh to record)
+cores=6
+N=100000000
+runs=5
